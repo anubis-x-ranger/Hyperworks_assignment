@@ -1,27 +1,19 @@
 import React from 'react'
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-
+import { Navigate, useNavigate } from 'react-router-dom';
+import Prompt from '../Components/Prompt';
+import { useEffect } from 'react';
 const Home = () => {
 const [userName,setUserName]=useState("")
 
+const [userId, setUserId] = useState("");
 
 
-
-const handleSubmit=()=>{
-    localStorage.setItem("userName",userName);
-    localStorage.setItem("userName",userName);
-    
-}
-
-
+let uN=localStorage.getItem("userName");
   return (
     <div>
-        <h1>Please Create A Profile</h1>
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="username" value={userName} onChange={(e)=>setUserName(e.target.value)}/>
-            <input type="submit" />
-        </form>
+      {uN=="" || uN==undefined ?<Prompt userName={userName} setUserName={setUserName} setUserId={setUserId}/>:<Navigate to="/auctions"></Navigate>}
+        
     </div>
   )
 }

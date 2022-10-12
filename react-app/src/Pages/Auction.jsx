@@ -5,5 +5,5 @@ const Auction = () => {
     <div>Auction</div>
   )
 }
-
+ 
 export default Auction
