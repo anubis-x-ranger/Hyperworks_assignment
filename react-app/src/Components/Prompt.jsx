@@ -1,30 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-const Prompt = ({userName,setUserName,setUserId}) => {
-    let nav=useNavigate();
- 
-const handleSubmit=()=>{
-  let id=uuidv4();
-    localStorage.setItem("userName",userName);
-    localStorage.setItem("userid",id);
+
+const Prompt = () => {
+    var navigate=useNavigate();
+    var storage=localStorage;
+    useEffect(() => {
+      
+      var name=localStorage.getItem("userName");
+      var id=localStorage.getItem("userID");
+      if(name==null || name==undefined){
+        window.location.reload();
+        name=window.prompt("Enter username to create profile");
+        id=uuidv4();
+        storage.setItem("userName",name);
+        storage.setItem("id",id);
+      }
+      navigate("/auctions")
+    })
     
-  setUserId(`${id}`);
-  move();
-}
-
-const move=()=>{
-  nav("/auctions");
-}
-
   return (
-    <div>
-        <h1>Please Create A Profile</h1>
-    <form onSubmit={handleSubmit}>
-        <input type="text" name="username" value={userName} onChange={(e)=>setUserName(e.target.value)}/>
-        <input type="submit" />
-    </form>
-    </div>
+    <>
+    </>
   )
 }
 
